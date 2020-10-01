@@ -33,18 +33,6 @@ public:
 
   bool isButtonPressed() { return button->isPressed(); };
 
-  String getJoystickStatus() {
-    String s;
-    auto joystick = getJoystickValues();
-
-    s += "X: " + joystick.first;
-    s += ", Y: " + joystick.second;
-    if (isButtonPressed()) {
-      s += " button pressed!";
-    }
-    return s;
-  }
-
 private:
   void detectCenterPosition() {
     auto joystick = getJoystickValues();
