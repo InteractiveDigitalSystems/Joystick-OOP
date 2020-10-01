@@ -2,6 +2,7 @@
 #define Joystick_h
 
 #include "Arduino.h"
+#include "Button.h"
 
 class Joystick {
 public:
@@ -11,9 +12,7 @@ public:
     this->yPin = yPin;
     detectCenterPosition();
 
-    // Setup button
-    this->buttonPin = buttonPin;
-    pinMode(this->buttonPin, INPUT_PULLUP);
+    button = new Button(buttonPin);
   };
 
   void setName(String s) { this->name = s; }
@@ -32,15 +31,15 @@ public:
            std::abs(joystick.second - joyYCenterVal) < offset;
   }
 
-  bool isButtonPressed() { return digitalRead(buttonPin) == 0; }
+  bool isButtonPressed() { return button->isPressed(); };
 
-  String getJoystickStatus(){
+  String getJoystickStatus() {
     String s;
     auto joystick = getJoystickValues();
 
     s += "X: " + joystick.first;
     s += ", Y: " + joystick.second;
-    if(isButtonPressed()){
+    if (isButtonPressed()) {
       s += " button pressed!";
     }
     return s;
@@ -52,6 +51,8 @@ private:
     joyXCenterVal = joystick.first;
     joyYCenterVal = joystick.second;
   };
+
+  Button *button;
 
   int xPin = 0;
   int yPin = 0;

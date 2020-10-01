@@ -11,7 +11,7 @@ public:
     pinMode(this->buttonPin, INPUT_PULLUP);
   }
 
-  bool isButtonPressed() { return digitalRead(buttonPin) == 0; }
+  bool isPressed() { return digitalRead(buttonPin) == 0; }
 
 private:
   int buttonPin = 0;
